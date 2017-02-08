@@ -1,1 +1,1 @@
-FROM rails:onbuild
+FROM hypriot:rpi-ruby
