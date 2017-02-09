@@ -1,1 +1,1 @@
-FROM hypriot:rpi-ruby
+FROM armhf/ruby:onbuild
