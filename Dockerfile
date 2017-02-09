@@ -20,6 +20,7 @@ RUN set -ex \
 		bison \
 		libgdbm-dev \
 		ruby \
+		wget \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
