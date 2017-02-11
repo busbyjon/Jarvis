@@ -50,13 +50,13 @@ class Tado
 				if mobileDevices["name"] == device
 					output = mobileDevices['location']['atHome']
 					if output == true
-						return "Home"
+						return "home"
 					else 
-						return "Out of the house"
+						return "car"
 					end
 				end
 			end
-			return "Unknown"
+			return "find"
 		end
 	end
 

@@ -2,11 +2,11 @@
 <div class="ui grid internally celled">
 	<div class="row center aligned">
     <div class="three wide column">
-    	<h1 class='ui center aligned header'><%= @tado.get_indoor_temp %></h1>
+    	<h1 class='ui center aligned header'><%= @tado.get_indoor_temp %>&#8451;</h1>
       <h3 class='ui center aligned header'>Indoor Temp</h3>
     </div>
     <div class="three wide column">
-    	    <h1 class='ui center aligned header'><%= @tado.get_outdoor_temp %></h1>
+    	    <h1 class='ui center aligned header'><%= @tado.get_outdoor_temp %>&#8451;</h1>
       		<h3 class='ui center aligned header'>Outdoor Temp</h3>
     </div>
     <div class="three wide column">
@@ -14,12 +14,13 @@
       		<h3 class='ui center aligned header'>Weather</h3>
     </div>
 
-    <div class="four wide column">
-      <p>Jon is : <%= @tado.get_device_status("Jon's Phone") %></p>
-      <p>Sally is : <%= @tado.get_device_status("Sally's Phone") %></p>
+    <div class="three wide column">
+      <i class="huge icon <%= @tado.get_device_status("Jon's Phone") %>"></i>
+      <h3 class='ui center aligned header'>Jon</h3>
     </div>
     <div class="three wide column">
-      <img>
+      <i class="huge icon <%= @tado.get_device_status("Sally's Phone") %>"></i>
+      <h3 class='ui center aligned header'>Sally</h3>
     </div>
   </div>
 
