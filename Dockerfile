@@ -1,16 +1,4 @@
-FROM resin/rpi-raspbian:jessie
-
-# skip installing gem documentation
-RUN mkdir -p /usr/local/etc \
-	&& { \
-		echo 'install: --no-document'; \
-		echo 'update: --no-document'; \
-	} >> /usr/local/etc/gemrc
-
-ENV RUBY_MAJOR 2.4
-ENV RUBY_VERSION 2.4.0
-ENV RUBY_DOWNLOAD_SHA256 152fd0bd15a90b4a18213448f485d4b53e9f7662e1508190aa5b702446b29e3d
-ENV RUBYGEMS_VERSION 2.6.8
+FROM debian:jessie
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates \
@@ -29,7 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		procps \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN set -ex; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
 		autoconf \
 		automake \
 		bzip2 \
@@ -51,7 +41,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		liblzma-dev \
 		libmagickcore-dev \
 		libmagickwand-dev \
-		libmysqlclient-dev \
 		libncurses-dev \
 		libpng-dev \
 		libpq-dev \
@@ -67,7 +56,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		patch \
 		xz-utils \
 		zlib1g-dev \
-	&& rm -rf /var/lib/apt/lists/*
+		\
+# https://lists.debian.org/debian-devel-announce/2016/09/msg00000.html
+		$( \
+# if we use just "apt-cache show" here, it returns zero because "Can't select versions from package 'libmysqlclient-dev' as it is purely virtual", hence the pipe to grep
+			if apt-cache show 'default-libmysqlclient-dev' 2>/dev/null | grep -q '^Version:'; then \
+				echo 'default-libmysqlclient-dev'; \
+			else \
+				echo 'libmysqlclient-dev'; \
+			fi \
+		) \
+	; \
+	rm -rf /var/lib/apt/lists/*
+
+
+# skip installing gem documentation
+RUN mkdir -p /usr/local/etc \
+	&& { \
+		echo 'install: --no-document'; \
+		echo 'update: --no-document'; \
+	} >> /usr/local/etc/gemrc
+
+ENV RUBY_MAJOR 2.4
+ENV RUBY_VERSION 2.4.0
+ENV RUBY_DOWNLOAD_SHA256 3a87fef45cba48b9322236be60c455c13fd4220184ce7287600361319bb63690
+ENV RUBYGEMS_VERSION 2.6.10
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -82,12 +95,12 @@ RUN set -ex \
 	&& apt-get install -y --no-install-recommends $buildDeps \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
-	&& wget -O ruby.tar.gz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.gz" \
-	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.gz" | sha256sum -c - \
+	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
+	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
 	\
 	&& mkdir -p /usr/src/ruby \
-	&& tar -xzf ruby.tar.gz -C /usr/src/ruby --strip-components=1 \
-	&& rm ruby.tar.gz \
+	&& tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \
+	&& rm ruby.tar.xz \
 	\
 	&& cd /usr/src/ruby \
 	\
@@ -111,7 +124,7 @@ RUN set -ex \
 	\
 	&& gem update --system "$RUBYGEMS_VERSION"
 
-ENV BUNDLER_VERSION 1.13.6
+ENV BUNDLER_VERSION 1.14.3
 
 RUN gem install bundler --version "$BUNDLER_VERSION"
 
