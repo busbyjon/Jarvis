@@ -1,4 +1,4 @@
-FROM busbyjon:armv6-ruby:2.4
+FROM busbyjon/armv6-ruby:2.4
 
 WORKDIR /usr/src/app
 COPY Gemfile* ./
