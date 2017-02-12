@@ -141,15 +141,11 @@ RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 
 CMD [ "irb" ]
 
-
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
-
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+COPY Gemfile* ./
+RUN bundle install
+COPY . .
 
-ONBUILD COPY Gemfile /usr/src/app/
-ONBUILD COPY Gemfile.lock /usr/src/app/
-ONBUILD RUN bundle install
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
 
-ONBUILD COPY . /usr/src/app
