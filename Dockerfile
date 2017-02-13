@@ -10,6 +10,8 @@ COPY Gemfile* ./
 RUN bundle install
 COPY . .
 
+RUN bin/rake assets:precompile
+
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
 
