@@ -17,3 +17,7 @@
 // Loads all Semantic javascripts
 //= require semantic-ui
 //= require_tree .
+
+setTimeout(function(){
+   window.location.reload(1);
+}, 10000);
