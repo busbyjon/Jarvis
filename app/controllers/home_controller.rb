@@ -3,9 +3,15 @@ class HomeController < ApplicationController
 		begin
 			@tado = Tado.new
 			client = Hue::Client.new
-		rescue
+		rescue => e
+			logger.error e.message
+  			e.backtrace.each { |line| logger.error line }
 			client = false
 			@tado = false
 		end
+	end
+
+	def test
+		@report = ARPScan('--localnet')
 	end
 end
