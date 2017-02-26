@@ -23,6 +23,8 @@ gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails.git'
 gem 'hue'
 
+gem 'arp_scan', '~> 0.1.0'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
