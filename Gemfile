@@ -19,9 +19,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'faraday'
 gem 'sidekiq'
 gem 'redis-rails'
-gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails.git'
 gem 'hue'
+
+gem "font-awesome-rails"
 
 gem 'arp_scan', '~> 0.1.0'
 

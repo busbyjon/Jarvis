@@ -13,16 +13,30 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require cable
-// Loads all Semantic javascripts
-//= require semantic-ui
 //= require_tree .
 
 setTimeout(function(){
-   window.location.reload(1);
+   //window.location.reload(1);
 }, 10000);
 
 setInterval('updateClock()', 200);
+
+setInterval('LoadWeather()', 6000);
+
+function LoadWeather()
+{
+    $(function() {
+        $.getJSON(
+        "/weather_image",
+        function(json){
+            console.log("setting background-image to " + json[0][1]); 
+            $('#dashboard').css("background-image", "url(" + json[0][1] + ")");
+            
+        });
+    });
+}
+
+LoadWeather();
 
 // This function gets the current time and injects it into the DOM
 function updateClock() {
@@ -62,7 +76,7 @@ function updateClock() {
     var elem = document.getElementById('clock');
 
     // Sets the elements inner HTML value to our clock data
-    elem.innerHTML = hours + ':' + minutes + ':' + seconds;
+    elem.innerHTML = hours + ':' + minutes;
 
     // Gets the element we want to inject the clock into
     var day_elem = document.getElementById('day');

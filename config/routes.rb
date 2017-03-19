@@ -5,6 +5,7 @@ mount ActionCable.server => '/cable'
 
 
 get 'test', to: 'home#test'
+get 'weather_image', to: 'home#get_weather_image'
 
 root 'home#index'
 

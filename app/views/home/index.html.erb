@@ -1,37 +1,20 @@
-<% if (@tado) %>
 
-<div class="ui grid internally celled">
-	<div class="row center aligned">
-    <div class="four wide column">
-      <h1 id="clock"></h1>
-      <h3 id="day"></h3>
-      <h1 id="date"></h1>
-    </div>
-    <div class="four wide column">
-    	<h1 class='ui center aligned header'><%= @tado.get_indoor_temp %>&#8451;</h1>
-      <h3 class='ui center aligned header'>Indoor Temp</h3>
-    </div>
-    <div class="four wide column">
-    	    <h1 class='ui center aligned header'><%= @tado.get_outdoor_temp %>&#8451;</h1>
-      		<h3 class='ui center aligned header'>Outdoor Temp</h3>
-    </div>
-    <div class="four wide column">
-    		<i class="wi-4x wi wi-<%= weather_icon(@tado.get_home_weather) %>"></i>
-      		<h3 class='ui center aligned header'>Weather</h3>
-    </div>
+<div id="dashboard">
 
-  </div>
-  <div class="row center aligned">
-      <div class="four wide column">
-      <i class="huge icon <%= @tado.get_device_status("Jon's Phone") %>"></i>
-      <h3 class='ui center aligned header'>Jon</h3>
-    </div>
-    <div class="four wide column">
-      <i class="huge icon <%= @tado.get_device_status("Sally's Phone") %>"></i>
-      <h3 class='ui center aligned header'>Sally</h3>
-    </div>
+  <div id="indoor_temp"><%= @tado.get_indoor_temp %>&#8451;</div>
+  <div id="outdoor_temp"><%= @tado.get_outdoor_temp %>&#8451;</div>
+
+  <div id="jon_status"><%= fa_icon @tado.get_device_status("Jon's Phone") + " 4x" %></div>
+
+  <div id="sally_status"><%= fa_icon @tado.get_device_status("Sally's Phone") + " 4x" %></div>
+
+
+  <div id="weather"><i class="wi-6x wi wi-<%= weather_icon(@tado.get_home_weather) %>"></i></div>
+
+  <div id="clock-and-date">
+    <h1 id="clock"></h1>
+    <h3 id="day"></h3>
+    <h1 id="date"></h1>
   </div>
 
 </div>
-
-<% end %>

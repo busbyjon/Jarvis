@@ -11,7 +11,62 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
- *= require semantic-ui
  *= require weather-icons
+ *= require font-awesome
  *= require_self
  */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ #dashboard {
+ 	width: 100%;
+ 	margin: 0 auto;
+ 	height: 100vh;
+ 	color: white;
+ 	font-family: 'Ubuntu Mono', monospace;
+ }
+
+#weather {
+	position: absolute;
+	left: 500px;
+	text-align: right;
+	width : 280px;
+	top: 300px;
+}
+
+#clock-and-date {
+	position: absolute;
+	left: 500px;
+	top: 400px;
+	text-align: right;
+	width: 280px;
+}
+
+#clock {
+	font-size: 100px;
+}
+
+#day {
+	font-size: 40px;
+}
+
+#date {
+	font-size: 50px;
+}
+
+#indoor_temp {
+	position: absolute;
+	font-size:50px;
+	left:20px;
+	bottom: 20px;
+}
+
+#outdoor_temp {
+	position: absolute;
+	font-size:50px;
+	left:250px;
+	bottom: 20px;
+}

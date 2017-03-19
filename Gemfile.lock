@@ -6,13 +6,6 @@ GIT
       railties (>= 3.2)
       sass (~> 3.2)
 
-GIT
-  remote: https://github.com/doabit/semantic-ui-sass.git
-  revision: 7d81580079b7b123db892a39d955a96fe0271ae3
-  specs:
-    semantic-ui-sass (2.2.7.1)
-      sass (>= 3.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,6 +66,8 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hue (0.2.0)
@@ -210,6 +205,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   faraday
+  font-awesome-rails
   hue
   jbuilder (~> 2.5)
   jquery-rails
@@ -218,7 +214,6 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   redis-rails
   sass-rails (~> 5.0)
-  semantic-ui-sass!
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
