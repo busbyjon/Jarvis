@@ -1,4 +1,4 @@
-FROM busbyjon/armv6-ruby:2.4
+FROM busbyjon/armv6-ruby:latest
 
 RUN [ "cross-build-start" ]
 
