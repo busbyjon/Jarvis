@@ -83,4 +83,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.hue_username = ENV["HUE_USERNAME"]
+  config.tado_username = ENV["TADO_USERNAME"]
+  config.tado_password = ENV["TADO_PASSWORD"]
+  
 end
