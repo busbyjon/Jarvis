@@ -23,6 +23,6 @@ RUN bin/rake assets:precompile
 RUN [ "cross-build-end" ]  
 
 EXPOSE 3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-e", "production"]
 
 

@@ -31,16 +31,16 @@
 
 #weather {
 	position: absolute;
-	left: 500px;
+	right: 20px;
 	text-align: right;
 	width : 280px;
-	top: 300px;
+	top: 140px;
 }
 
 #clock-and-date {
 	position: absolute;
-	left: 500px;
-	top: 400px;
+	right: 20px;
+	bottom: 20px;
 	text-align: right;
 	width: 280px;
 }
@@ -69,4 +69,10 @@
 	font-size:50px;
 	left:250px;
 	bottom: 20px;
+}
+
+#home_status {
+	position: absolute;
+	left:20px;
+	top:20px;
 }

@@ -4,9 +4,11 @@
   <div id="indoor_temp"><%= @tado.get_indoor_temp %>&#8451;</div>
   <div id="outdoor_temp"><%= @tado.get_outdoor_temp %>&#8451;</div>
 
-  <div id="jon_status"><%= fa_icon @tado.get_device_status("Jon's Phone") + " 4x" %></div>
+  <div id="home_status">
+    <div id="jon_status"><%= fa_icon @tado.get_device_status("Jon's Phone") + " 4x" %></div>
 
-  <div id="sally_status"><%= fa_icon @tado.get_device_status("Sally's Phone") + " 4x" %></div>
+    <div id="sally_status"><%= fa_icon @tado.get_device_status("Sally's Phone") + " 4x" %></div>
+  </div>
 
 
   <div id="weather"><i class="wi-6x wi wi-<%= weather_icon(@tado.get_home_weather) %>"></i></div>
