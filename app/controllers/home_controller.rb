@@ -12,6 +12,7 @@ class HomeController < ApplicationController
 	def get_weather_image
 		@tado = Tado.factory
 		weather = @tado.get_home_weather
+		weather = weather.downcase
 		weather = Array({ :image => ActionController::Base.helpers.image_path(weather + ".jpg")})
 		render json: weather
 	end
