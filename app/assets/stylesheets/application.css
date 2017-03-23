@@ -27,6 +27,7 @@
  	height: 100vh;
  	color: white;
  	font-family: 'Ubuntu Mono', monospace;
+ 	background-color: black;
  }
 
 #weather {

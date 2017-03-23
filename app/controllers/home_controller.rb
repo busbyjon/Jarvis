@@ -2,17 +2,10 @@ class HomeController < ApplicationController
 	def index
 		begin
 			@tado = Tado.factory
-			if Rails.env.development? 
-				#client = Hue::Client.new
-				#client = "test"
-			else
-				#client = Hue::Client.new
-			end
+			#client = Hue::Client.new
 		rescue => e
 			logger.error e.message
   			e.backtrace.each { |line| logger.error line }
-			client = false
-			@tado = false
 		end
 	end
 
