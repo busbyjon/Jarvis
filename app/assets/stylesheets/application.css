@@ -58,14 +58,14 @@
 	font-size: 50px;
 }
 
-#indoor_temp {
+#indoor_temp_div {
 	position: absolute;
 	font-size:50px;
 	left:20px;
 	bottom: 20px;
 }
 
-#outdoor_temp {
+#outdoor_temp_div {
 	position: absolute;
 	font-size:50px;
 	left:250px;

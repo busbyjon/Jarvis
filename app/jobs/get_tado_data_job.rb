@@ -1,8 +1,15 @@
 class GetTadoDataJob < ApplicationJob
   queue_as :default
+  RUN_EVERY = 10.seconds
+
 
   def perform(*args)
-  	tado = Tado.new
-  	puts tado.get_outdoor_temp
+	@tado = Tado.factory
+	ActionCable.server.broadcast 'stats',
+        indoor_temp: @tado.get_indoor_temp,
+        outdoor_temp: @tado.get_indoor_temp
+        
+    self.class.set(wait: RUN_EVERY).perform_later
+
   end
 end

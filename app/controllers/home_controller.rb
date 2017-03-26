@@ -9,6 +9,16 @@ class HomeController < ApplicationController
 		end
 	end
 
+	def test_stats
+		@tado = Tado.factory
+		ActionCable.server.broadcast 'stats',
+        	indoor_temp: @tado.get_indoor_temp,
+        	outdoor_temp: @tado.get_indoor_temp
+
+
+		render plain: "OK"
+    end
+
 	def get_weather_image
 		@tado = Tado.factory
 		weather = @tado.get_home_weather
