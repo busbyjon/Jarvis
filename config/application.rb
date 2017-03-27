@@ -14,6 +14,5 @@ module Jarvis
     config.active_job.queue_adapter = :sidekiq
     #using file store now as it works!
     #config.cache_store = :file_store, "tmp/cache"
-    config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 90.minutes }
   end
 end

@@ -87,5 +87,8 @@ Rails.application.configure do
   config.hue_username = ENV["HUE_USERNAME"]
   config.tado_username = ENV["TADO_USERNAME"]
   config.tado_password = ENV["TADO_PASSWORD"]
+
+  config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 90.minutes }
+
   
 end
