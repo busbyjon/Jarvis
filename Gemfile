@@ -18,7 +18,7 @@ gem 'coffee-rails', '~> 4.2'
 
 gem 'faraday'
 gem 'sidekiq'
-#gem 'redis-rails'
+gem 'redis-rails'
 gem 'redis'
 gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails.git'
 gem 'hue'
