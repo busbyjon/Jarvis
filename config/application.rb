@@ -13,7 +13,7 @@ module Jarvis
     # -- all .rb files in that directory are automatically loaded.
     config.active_job.queue_adapter = :sidekiq
     #using file store now as it works!
-    config.cache_store = :file_store, "tmp/cache"
-    #config.cache_store = :redis_store, "redis://localhost:32768/0/cache", { expires_in: 90.minutes }
+    #config.cache_store = :file_store, "tmp/cache"
+    config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 90.minutes }
   end
 end

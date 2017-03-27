@@ -1,5 +1,5 @@
 Sidekiq.configure_server do |config|
-  config.redis = { url: 'redis://localhost:32768/12' }
+  config.redis = { url: ENV['REDIS_URL'] }
 
   Rails.application.config.after_initialize do
         # You code goes here
