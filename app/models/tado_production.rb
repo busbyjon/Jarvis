@@ -79,6 +79,7 @@ class TadoProduction < Tado
 			  req.url url
 			end
 			weather_response = (JSON.parse response.body)["weatherState"]["value"]
+			weather_response.downcase.gsub("_", "-").gsub("foggy","fog").gsub("sun","day-sunny").gsub("cloudy-mostly", "cloudy")
 		end
 	end
 

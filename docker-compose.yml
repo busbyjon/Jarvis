@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  jarvis_redis:
+    image: redis:latest
+    ports:
+      - "6379"
+    networks:
+      - jarvisapp
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  jarvis-app:
+    image: busbyjon/jarvis:latest
+    ports:
+      - 3000:3000
+    networks:
+      - jarvisapp
+    depends_on:
+      - jarvis_redis
+    deploy:
+      mode: replicated
+      replicas: 2
+      labels: [APP=JARVIS]
+      placement:
+        constraints: [node.role == worker]
+  jarvis-worker:
+    image: busbyjon/jarvis:latest
+    command: bundle exec sidekiq
+    networks:
+      jarvisapp:
+        aliases:
+          - workers
+    depends_on:
+      - jarvis_redis
+    # service deployment
+    deploy:
+      mode: replicated
+      replicas: 2
+      labels: [APP=JARVIS]
+      # service resource management
+      resources:
+        # Hard limit - Docker does not allow to allocate more
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        # Soft limit - Docker makes best effort to return to it
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      # service restart policy
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      # service update configuration
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: continue
+        monitor: 60s
+        max_failure_ratio: 0.3
+      # placement constraint - in this case on 'worker' nodes only
+      placement:
+        constraints: [node.role == worker]
+
+networks:
+    jarvisapp:

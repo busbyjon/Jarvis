@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  jarvis_redis:
+    image: redis:arm
+  jarvis-app:
+    image: busbyjon/jarvis:arm
+  jarvis-worker:
+    image: busbyjon/jarvis:arm
+
+
+
