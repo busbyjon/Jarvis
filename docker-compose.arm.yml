@@ -7,8 +7,12 @@ services:
     image: busbyjon/jarvis:arm
     ports:
       - "3000:3000"
+    env_file:
+      - ../secrets.env
   jarvis-worker:
     image: busbyjon/jarvis:arm
+    env_file:
+      - ../secrets.env
 
 
 
