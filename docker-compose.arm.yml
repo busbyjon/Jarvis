@@ -2,11 +2,16 @@ version: "3"
 
 services:
   jarvis_redis:
-    image: redis:arm
+    image: hypriot/rpi-redis:latest
   jarvis-app:
     image: busbyjon/jarvis:arm
+    environment:
+      - REDIS_URL=redis://jarvis_redis/
+      - RAILS_ENV=production
   jarvis-worker:
     image: busbyjon/jarvis:arm
+          - REDIS_URL=redis://jarvis_redis/
+      - RAILS_ENV=production
 
 
 
