@@ -3,7 +3,7 @@
 if ENV['RAILS_ENV'] == "development"
 
 	Sidekiq.configure_server do |config|
-  	  config.redis = { url: 'redis://localhost:32768/' }
+  	  config.redis = { url: ENV['REDIS_URL'] }
   	  Rails.application.config.after_initialize do
 	        # You code goes here
 	        GetTadoDataJob.perform_now()
@@ -11,7 +11,7 @@ if ENV['RAILS_ENV'] == "development"
 	end
 
 	Sidekiq.configure_client do |config|
-	  config.redis = { url: 'redis://localhost:32768/' }
+	  config.redis = { url: ENV['REDIS_URL'] }
 	end
 
 else 

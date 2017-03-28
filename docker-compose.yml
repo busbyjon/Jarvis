@@ -11,7 +11,7 @@ services:
       placement:
         constraints: [node.role == manager]
   jarvis-app:
-    image: busbyjon/jarvis:latest
+    build: .
     ports:
       - 3000:3000
     networks:
@@ -24,8 +24,11 @@ services:
       labels: [APP=JARVIS]
       placement:
         constraints: [node.role == worker]
+    environment:
+      - REDIS_URL=redis://jarvis_redis/
+      - RAILS_ENV=development
   jarvis-worker:
-    image: busbyjon/jarvis:latest
+    build: .
     command: bundle exec sidekiq
     networks:
       jarvisapp:
@@ -64,6 +67,9 @@ services:
       # placement constraint - in this case on 'worker' nodes only
       placement:
         constraints: [node.role == worker]
+    environment:
+      - REDIS_URL=redis://jarvis_redis/
+      - RAILS_ENV=development
 
 networks:
     jarvisapp:
