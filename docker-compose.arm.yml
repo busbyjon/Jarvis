@@ -6,7 +6,7 @@ services:
   jarvis-app:
     image: busbyjon/jarvis:arm
     ports:
-      - "3000"
+      - "3000":"3000"
   jarvis-worker:
     image: busbyjon/jarvis:arm
 
