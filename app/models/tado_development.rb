@@ -26,7 +26,7 @@ class TadoDevelopment < Tado
 	end
 
 	def get_home_weather
-		return "rain"
+		return "day-sunny"
 	end
 
 	def get_outdoor_temp 
