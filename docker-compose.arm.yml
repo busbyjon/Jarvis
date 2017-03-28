@@ -11,6 +11,7 @@ services:
       - ../secrets.env
   jarvis-worker:
     image: busbyjon/jarvis:arm
+    command: bundle exec sidekiq
     env_file:
       - ../secrets.env
 
