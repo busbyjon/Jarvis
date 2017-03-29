@@ -5,7 +5,7 @@ services:
     image: hypriot/rpi-redis:latest
   jarvis-app:
     image: busbyjon/jarvis:arm
-    ports:
+    ports:   
       - "3000:3000"
     env_file:
       - ../secrets.env

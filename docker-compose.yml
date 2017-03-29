@@ -13,7 +13,7 @@ services:
   jarvis-app:
     build: .
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       - jarvisapp
     depends_on:
