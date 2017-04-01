@@ -6,7 +6,9 @@ if ENV['RAILS_ENV'] == "development"
   	  config.redis = { url: ENV['REDIS_URL'] }
   	  Rails.application.config.after_initialize do
 	        # You code goes here
-	        GetTadoDataJob.perform_now()
+	        # commented out as this isnt needed with the scheduler
+	        #GetTadoDataJob.perform_now()
+	        SetSunTimesJob.perform_now()
 	  end
 	end
 
@@ -20,7 +22,9 @@ else
   	  config.redis = { url: ENV['REDIS_URL'] }
   	  Rails.application.config.after_initialize do
 	        # You code goes here
-	        GetTadoDataJob.perform_now()
+	        # commented out as this isnt needed with the scheduler
+	        #GetTadoDataJob.perform_now()
+	        SetSunTimesJob.perform_now()
 	  end
 	end
 

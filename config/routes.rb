@@ -10,4 +10,9 @@ get 'weather_image', to: 'home#get_weather_image'
 
 root 'home#index'
 
+require 'sidekiq/web'
+require 'sidekiq-scheduler'
+require 'sidekiq-scheduler/web'
+mount Sidekiq::Web => '/sidekiq'
+
 end

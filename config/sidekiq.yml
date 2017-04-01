@@ -1,0 +1,25 @@
+:schedule:
+  GetTadoDataJob:
+    every: 1m   # Runs once per minute
+    class: GetTadoDataJob
+  MorningLightsWeekday:
+    cron: "0 5 * * 1-5"
+    class: SetLightsJob
+    args: [ morningOn, "Morning Lights On"] 
+  BedtimeLightsWeekday:
+    cron: "15 10 * * 1-5"
+    class: SetLightsJob
+    args: [ bedtimeOn, "Bedtime Lights On"]
+  AllLightsOff:
+    cron: "45 10 * * *"
+    class: SetLightsJob
+    args: [bedtimeOff, "All Lights Off"]
+  MorningLightsWeekend:
+    cron: "0 7 * * 0,6"
+    class: SetLightsJob
+    args: [morningOn, "Morning Lights On"]
+  SetSunTimesJob:
+    cron: "0 0 * * *"
+    class: SetSunTimesJob
+
+

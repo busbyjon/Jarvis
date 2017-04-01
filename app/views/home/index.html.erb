@@ -10,6 +10,8 @@
     <div id="sally_status"><%= fa_icon @tado.get_device_status("Sally's Phone") + " 4x" %></div>
   </div>
 
+  <div id="current_message"></div>
+
 
   <div id="weather"><i id="weather_icon" class="wi-6x wi wi-<%= weather_icon(@tado.get_home_weather) %>"></i></div>
 

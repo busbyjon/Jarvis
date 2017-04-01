@@ -21,7 +21,10 @@ gem 'sidekiq'
 gem 'redis-rails'
 gem 'redis'
 gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails.git'
-gem 'hue'
+
+gem 'ruby-sun-times', require: 'sun_times'
+
+gem 'sidekiq-scheduler'
 
 gem "font-awesome-rails"
 

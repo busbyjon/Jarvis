@@ -77,3 +77,12 @@
 	left:20px;
 	top:20px;
 }
+
+#current_message {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	font-size: 30px;
+	width: 350px;
+	text-align: right;
+}

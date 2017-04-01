@@ -28,6 +28,9 @@ class HomeController < ApplicationController
 	end
 
 	def test
-		@report = ARPScan('--localnet')
+		@housestats = HouseStats.new
+
+		@state = @housestats.checkState
+		@hue = @housestats.getHue
 	end
 end
