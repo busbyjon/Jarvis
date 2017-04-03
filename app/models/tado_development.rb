@@ -17,8 +17,12 @@ class TadoDevelopment < Tado
 		return rand(10.01...23.55).round(1)
 	end
 
+	def get_device_status_bool(device) 
+		return true
+	end
+
 	def get_device_status(device) 
-		return "home"
+		return "car"
 	end
 
 	def get_home_mode 
@@ -26,7 +30,7 @@ class TadoDevelopment < Tado
 	end
 
 	def get_home_weather
-		return "day-sunny"
+		return "cloudy"
 	end
 
 	def get_outdoor_temp 

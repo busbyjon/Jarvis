@@ -40,6 +40,25 @@ class TadoProduction < Tado
 		end
 	end
 
+
+	def get_device_status_bool(device) 
+		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 1.minute) do
+			response = @conn.get do |req|
+			  req.url '/api/v2/me'
+			end
+			house_response = (JSON.parse response.body)["mobileDevices"]
+			house_response.each do |mobileDevices| 
+				if mobileDevices["name"] == device
+					output = mobileDevices['location']['atHome']
+					return output
+				end
+			end
+			return false
+		end
+	end
+
+
+
 	def get_device_status(device) 
 		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 1.minute) do
 			response = @conn.get do |req|

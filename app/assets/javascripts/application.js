@@ -19,23 +19,6 @@
 
 setInterval('updateClock()', 200);
 
-setInterval('LoadWeather()', 6000);
-
-function LoadWeather()
-{
-    $(function() {
-        $.getJSON(
-        "/weather_image",
-        function(json){
-            console.log("setting background-image to " + json[0][1]); 
-            $('#dashboard').css("background-image", "url(" + json[0][1] + ")");
-            
-        });
-    });
-}
-
-LoadWeather();
-
 // This function gets the current time and injects it into the DOM
 function updateClock() {
     // Gets the current time
