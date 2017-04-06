@@ -8,7 +8,7 @@ class SetLightsJob < ApplicationJob
 
     if (start_countdown == true) 
     	# schedule the task 
-    	SetLightsJob.set(wait: 5.seconds).perform_later(setting, description, false)
+    	SetLightsJob.set(wait: 5.minutes).perform_later(setting, description, false)
     	# ok lets set a new cable message
     	message = Message.new
     	message.setMessage("Switching to " + description + " in 5 minutes")
@@ -42,25 +42,25 @@ class SetLightsJob < ApplicationJob
         case setting
             when "morningOn"
                 #Morning Lights on - Very Blue
-                hue.setGroupScene('1', "k7p-YR4WpKxycig")
-                hue.setGroupScene('2', "Cj-4vvWtfpiMuFS")
+                hue.setGroupScene('1', "MzIKAB1TjNIPkrM")
+                hue.setGroupScene('3', "0b0wGqWiWPy1FUQ")
+                hue.setGroupScene('2', "tijZkSob7GSzaKW")
             when "bedtimeOn"
-                hue.setGroupScene('2', "EIjdO4FCkksTpyp")
-                #Upstairs Bed On - Dim slowly
-                hue.setGroupScene('1',"bXo0uTWInRgbcaW")
-                hue.setGroupScene('3',"-0O1XfxaCFNQCiN")
+                hue.setGroupState('1',"false")
+                hue.setGroupState('3',"false")
+                hue.setGroupScene('2', "h-m9VVzMzkCPGzA")
                 #Living Room Off
             when "bedtimeOff"
                 #All Lights Off
                 hue.setGroupState('0',"false")
             when "sunset"
                 #Evening Mode
-                 hue.setGroupScene('1', "y5ZTa0h6PdMhq2r")
+                 hue.setGroupScene('1', "rIg438uSIfL57JI")
+                 hue.setGroupScene('3', "lJOfC6ZAtF4AmGE")
+                 hue.setGroupScene('2', "NUzJbNcROx-C4aA")
             when "sunrise"
                 #All Lights Off
-                hue.setGroupScene('1',"bXo0uTWInRgbcaW")
-                hue.setGroupScene('3',"-0O1XfxaCFNQCiN")
-                hue.setGroupScene('3',"Dxv7hGOi--ySrCv")
+                hue.setGroupState('0',"false")
         end
 
     end
