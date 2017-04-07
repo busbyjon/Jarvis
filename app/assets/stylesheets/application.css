@@ -86,3 +86,9 @@
 	width: 350px;
 	text-align: right;
 }
+
+#current_light_mode {
+	position: absolute;
+	bottom:80px;
+	left:20px;
+}

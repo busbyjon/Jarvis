@@ -42,7 +42,7 @@ class GetTadoDataJob < ApplicationJob
       puts "JARVIS : someone's come home - turn on the lights"
       # Get the last light status and turn them on.
       light_state = Rails.cache.read("light_state_setting")
-      light_description =Rails.cache.read("light_state_description")
+      light_description = Rails.cache.read("light_state_description")
 
       puts "JARVIS : setting lights back to " + light_state + " - " + light_description
 
@@ -61,12 +61,16 @@ class GetTadoDataJob < ApplicationJob
     weather = weather.downcase
     weather_image = ActionController::Base.helpers.image_path(weather + ".jpg")
 
+    # Re-read from cache just incase
+    current_light_mode = Rails.cache.read("light_state_description")
+
   	ActionCable.server.broadcast 'stats',
           indoor_temp: @tado.get_indoor_temp,
           outdoor_temp: @tado.get_outdoor_temp,
           weather: @tado.get_home_weather,
           weather_image: weather_image,
           current_message: current_message,
+          current_light_mode: current_light_mode,
           device_status: device_status
 
     #self.class.set(wait: RUN_EVERY).perform_later
