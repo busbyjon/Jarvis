@@ -25,6 +25,7 @@ gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails
 gem 'ruby-sun-times', require: 'sun_times'
 
 gem 'sidekiq-scheduler'
+gem 'sidekiq-failures'
 
 gem "font-awesome-rails"
 
