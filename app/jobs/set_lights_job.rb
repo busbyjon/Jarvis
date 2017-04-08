@@ -37,6 +37,15 @@ class SetLightsJob < ApplicationJob
             return false
         end
 
+        # Check if its dail light (this happens when sunrise is before morning lights 
+        # during the weeking)
+        if home.is_it_dark == false
+            puts "JARVIS : its not dark, dont trigger lights"
+            # Lets also set the current day mode
+            Rails.cache.write("light_state_setting", "daylight")
+            Rails.cache.write("light_state_description", "Daylight")
+            return false
+        end
         
 
         case setting
