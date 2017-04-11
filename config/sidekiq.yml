@@ -10,8 +10,12 @@
     cron: "15 22 * * 1-5 Europe/London"
     class: SetLightsJob
     args: [ bedtimeOn, "Bedtime Lights On"]
+  BedtimeLightsWeekend:
+    cron: "30 22 * * 0,6 Europe/London"
+    class: SetLightsJob
+    args: [ bedtimeOn, "Bedtime Lights On"]
   AllLightsOff:
-    cron: "45 22 * * * Europe/London"
+    cron: "55 22 * * * Europe/London"
     class: SetLightsJob
     args: [bedtimeOff, "All Lights Off"]
   MorningLightsWeekend:
@@ -19,7 +23,7 @@
     class: SetLightsJob
     args: [morningOn, "Morning Lights On"]
   SetSunTimesJob:
-    cron: "10 0 * * * Europe/London"
+    cron: "10 3 * * * Europe/London"
     class: SetSunTimesJob
 
 
