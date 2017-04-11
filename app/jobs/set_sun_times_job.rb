@@ -19,7 +19,7 @@ class SetSunTimesJob < ApplicationJob
 	end
 
 	if (now < sunset)
-		SetLightsJob.set(wait_until: sunset).perform_later("sunset", "Sunset")
+		SetLightsJob.set(wait_until: sunset - 25.minutes).perform_later("sunset", "Sunset")
 	end
 	# Not using Sidekiq scheduler here - as actually - its tidier to just use sidekiq
 
