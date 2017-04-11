@@ -19,7 +19,7 @@ class TadoProduction < Tado
 
 
 	def get_home_details
-		Rails.cache.fetch("tado_house_details", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_house_details", expires_in: 30.seconds) do
 			response = @conn.get do |req|
 			  req.url '/api/v2/me'
 			  # req.headers['Authorization'] = 'Bearer ' + self.get_token
@@ -32,7 +32,7 @@ class TadoProduction < Tado
 	def get_indoor_temp 
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/zones/1/state'
-		Rails.cache.fetch("tado_indoor_temp", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_indoor_temp", expires_in: 55.seconds) do
 			response = @conn.get do |req|
 			  req.url url
 			end
@@ -42,10 +42,11 @@ class TadoProduction < Tado
 
 
 	def get_device_status_bool(device) 
-		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 55.seconds) do
 			response = @conn.get do |req|
 			  req.url '/api/v2/me'
 			end
+
 			house_response = (JSON.parse response.body)["mobileDevices"]
 			house_response.each do |mobileDevices| 
 				if mobileDevices["name"] == device
@@ -60,7 +61,7 @@ class TadoProduction < Tado
 
 
 	def get_device_status(device) 
-		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 55.seconds) do
 			response = @conn.get do |req|
 			  req.url '/api/v2/me'
 			end
@@ -82,7 +83,7 @@ class TadoProduction < Tado
 	def get_home_mode 
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/zones/1/state'
-		Rails.cache.fetch("tado_indoor_temp", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_indoor_temp", expires_in: 55.seconds) do
 			response = @conn.get do |req|
 			  req.url url
 			end
@@ -93,7 +94,7 @@ class TadoProduction < Tado
 	def get_home_weather
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/weather'
-		Rails.cache.fetch("tado_weather", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_weather", expires_in: 5.minutes) do
 			response = @conn.get do |req|
 			  req.url url
 			end
@@ -105,7 +106,7 @@ class TadoProduction < Tado
 	def get_outdoor_temp 
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/weather'
-		Rails.cache.fetch("tado_outdoor_temp", expires_in: 1.minute) do
+		Rails.cache.fetch("tado_outdoor_temp", expires_in: 5.minutes) do
 			response = @conn.get do |req|
 			  req.url url
 			end
