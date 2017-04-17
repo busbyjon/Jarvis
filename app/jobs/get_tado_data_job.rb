@@ -55,6 +55,8 @@ class GetTadoDataJob < ApplicationJob
     puts "JARVIS : Writing cache key for is_anyone_home to " + current_home_status.to_s
     Rails.cache.write('is_anyone_home', current_home_status)
 
+    now = DateTime.now
+
     # Weather
 
     weather = @tado.get_home_weather
@@ -71,7 +73,8 @@ class GetTadoDataJob < ApplicationJob
           weather_image: weather_image,
           current_message: current_message,
           current_light_mode: current_light_mode,
-          device_status: device_status
+          device_status: device_status,
+          time: now
 
     #self.class.set(wait: RUN_EVERY).perform_later
 

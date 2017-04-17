@@ -16,6 +16,7 @@
 //= require_tree ./channels
 //= require_tree .
 
+var message_datetime = 0;
 
 setInterval('updateClock()', 200);
 
@@ -70,4 +71,18 @@ function updateClock() {
 
     // Sets the elements inner HTML value to our clock data
     date_elem.innerHTML = day + '/' + month + '/' + year;
+
+    // ok lets see if we're running behind
+    current_datetime = Date.now();
+
+    if (current_datetime - message_datetime < 61000) {
+        //console.log("green");
+        $('#status').css("color", "green");
+    } else if (current_datetime - message_datetime < 180000) {
+        //console.log("amber");
+        $('#status').css("color", "yellow");
+    } else {
+        //console.log("red");
+        $('#status').css("color", "red");
+    }
 }

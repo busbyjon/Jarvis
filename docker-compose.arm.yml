@@ -20,10 +20,17 @@ services:
       - jarvis_redis
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       labels: [APP=JARVIS]
       placement:
         constraints: [node.role == worker]
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: continue
+        monitor: 60s
+        max_failure_ratio: 0.3
+        # placement constraint - in this case on 'worker' nodes only
     env_file: ../secrets.env
   jarvis-worker:
     image: busbyjon/jarvis:arm
@@ -37,19 +44,8 @@ services:
     # service deployment
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       labels: [APP=JARVIS]
-      # service resource management
-      resources:
-        # Hard limit - Docker does not allow to allocate more
-        limits:
-          cpus: '0.25'
-          memory: 512M
-        # Soft limit - Docker makes best effort to return to it
-        reservations:
-          cpus: '0.25'
-          memory: 256M
-      # service restart policy
       restart_policy:
         condition: on-failure
         delay: 5s

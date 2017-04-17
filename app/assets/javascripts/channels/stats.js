@@ -34,6 +34,6 @@ App.stats = App.cable.subscriptions.create('StatsChannel', {
     $('#home_status').html(device_status_html);
     $("#current_light_mode").html(data.current_light_mode);
     $('#dashboard').css("background-image", "url(" + data.weather_image + ")");
-
+    message_datetime = Date.parse(data.time);
   }
 });

@@ -10,7 +10,7 @@ class TadoProduction < Tado
 	end
 
 	def get_token
-		Rails.cache.fetch("tado_token", expires_in: 10.minutes + 10.seconds) do
+		Rails.cache.fetch("tado_token", expires_in: 1.hour) do
 			response = @conn.post '/oauth/token', { :client_id => 'tado-webapp', :grant_type => 'password', :password => ENV["TADO_PASSWORD"], :username =>ENV["TADO_USERNAME"], :scope => 'home.user' }
 			token_response = JSON.parse response.body
 			token_response['access_token']
@@ -19,6 +19,8 @@ class TadoProduction < Tado
 
 
 	def get_home_details
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
 		Rails.cache.fetch("tado_house_details", expires_in: 30.seconds) do
 			response = @conn.get do |req|
 			  req.url '/api/v2/me'
@@ -29,7 +31,10 @@ class TadoProduction < Tado
 		end
 	end
 
-	def get_indoor_temp 
+	def get_indoor_temp
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
+
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/zones/1/state'
 		Rails.cache.fetch("tado_indoor_temp", expires_in: 55.seconds) do
@@ -42,6 +47,9 @@ class TadoProduction < Tado
 
 
 	def get_device_status_bool(device) 
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
+
 		Rails.cache.fetch("tado_device_status_#{device}", expires_in: 55.seconds) do
 			response = @conn.get do |req|
 			  req.url '/api/v2/me'
@@ -81,6 +89,9 @@ class TadoProduction < Tado
 	end
 
 	def get_home_mode 
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
+
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/zones/1/state'
 		Rails.cache.fetch("tado_indoor_temp", expires_in: 55.seconds) do
@@ -92,6 +103,9 @@ class TadoProduction < Tado
 	end
 
 	def get_home_weather
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
+
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/weather'
 		Rails.cache.fetch("tado_weather", expires_in: 5.minutes) do
@@ -104,6 +118,9 @@ class TadoProduction < Tado
 	end
 
 	def get_outdoor_temp 
+		# Lets reset the auth token
+		@conn.authorization :Bearer, self.get_token
+		
 		@home = self.get_home_details
 		url =  '/api/v2/homes/' + @home.to_s  + '/weather'
 		Rails.cache.fetch("tado_outdoor_temp", expires_in: 5.minutes) do
