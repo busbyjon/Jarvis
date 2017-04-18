@@ -22,8 +22,6 @@ services:
       mode: replicated
       replicas: 1
       labels: [APP=JARVIS]
-      placement:
-        constraints: [node.role == worker]
       update_config:
         parallelism: 1
         delay: 10s
