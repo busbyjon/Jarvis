@@ -10,11 +10,11 @@ class TadoProduction < Tado
 	end
 
 	def get_token
-		Rails.cache.fetch("tado_token", expires_in: 5.minutes) do
+		#Rails.cache.fetch("tado_token", expires_in: 5.minutes) do
 			response = @conn.post '/oauth/token', { :client_id => 'tado-webapp', :grant_type => 'password', :password => ENV["TADO_PASSWORD"], :username =>ENV["TADO_USERNAME"], :scope => 'home.user' }
 			token_response = JSON.parse response.body
 			token_response['access_token']
-		end
+		#end
 	end
 
 

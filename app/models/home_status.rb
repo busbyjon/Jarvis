@@ -16,11 +16,11 @@ class HomeStatus
 
 		now = DateTime.now
 
-		if ((now - 1.hour) < @sunrise) 
+		if ((now - 2.hours) < @sunrise) 
 			return true
 		end
 
-		if ((now + 1.hour) > @sunset)
+		if ((now + 2.hours) > @sunset)
 			return true
 		end
 

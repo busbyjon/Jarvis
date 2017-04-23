@@ -44,12 +44,17 @@ class GetTadoDataJob < ApplicationJob
       light_state = Rails.cache.read("light_state_setting")
       light_description = Rails.cache.read("light_state_description")
 
-      puts "JARVIS : setting lights back to " + light_state + " - " + light_description
+      if (light_state)
 
-      SetLightsJob.perform_later(light_state, light_description, false)
-      # Set message to welcome home
-      message = Message.new
-      message.setMessage("Welcome home, lights set back to " + light_description)
+        puts "JARVIS : setting lights back to " + light_state + " - " + light_description
+
+        SetLightsJob.perform_later(light_state, light_description, false)
+
+        # Set message to welcome home
+        message = Message.new
+        message.setMessage("Welcome home, lights set back to " + light_description)
+      end
+      
     end
       
     puts "JARVIS : Writing cache key for is_anyone_home to " + current_home_status.to_s

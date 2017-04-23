@@ -70,6 +70,9 @@ class SetLightsJob < ApplicationJob
             when "sunrise"
                 #All Lights Off
                 hue.setGroupState('0',"false")
+            when "dusk"
+                hue.setGroupScene('1', "ULlHTEF18cxmM6C")
+                hue.setGroupScene('3', "Jzv4z4XumIVMDOK")
         end
 
     end
