@@ -12,6 +12,7 @@ class SetLightsJob < ApplicationJob
     	# ok lets set a new cable message
     	message = Message.new
     	message.setMessage("Switching to " + description + " in 5 minutes")
+        UpdateCountdownJob.set(wait: 1.minute).perform_later(description, 4)
     	return true
     else 
 
@@ -26,7 +27,9 @@ class SetLightsJob < ApplicationJob
 
         #lets save the current state - so we can refer to it if no one is home
         Rails.cache.write("light_state_setting", setting)
+        Rails.application.config.light_state_setting = setting
         Rails.cache.write("light_state_description", description)
+        Rails.application.config.light_state_description = description
         
         # Only run this when someone is home!
         # TODO : Refactor this code

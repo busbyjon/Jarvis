@@ -43,5 +43,13 @@ class HomeStatus
 
 	end
 
+	def get_current_program
+			return Rails.application.config.light_state_setting
+	end
+
+	def get_next_program
+
+	end
+
 
 end
