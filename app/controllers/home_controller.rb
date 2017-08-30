@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 		begin
 			@tado = Tado.factory
 			#client = Hue::Client.new
-			GetTadoDataJob.set(:wait => 10.seconds).perform_later
+			#GetTadoDataJob.set(:wait => 10.seconds).perform_later
 		rescue => e
 			logger.error e.message
   			e.backtrace.each { |line| logger.error line }
