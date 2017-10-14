@@ -7,6 +7,12 @@ sed -i '' 's/ruby/busbyjon\/armv6-ruby/g' Dockerfile.arm
 sed -i '' 's/# cross-compile-start/RUN [ "cross-build-start" ]/g' Dockerfile.arm
 sed -i '' 's/# cross-compile-end/RUN [ "cross-build-end" ]/g' Dockerfile.arm
 
+rm Dockerfile.alpine.arm
+cp Dockerfile.alpine Dockerfile.alpine.arm
+
+sed -i '' 's/ruby:alpine3.6/busbyjon\/alpine-arm-qemu:3.6/g' Dockerfile.alpine.arm
+sed -i '' 's/# cross-compile-start/RUN [ "cross-build-start" ]/g' Dockerfile.alpine.arm
+sed -i '' 's/# cross-compile-end/RUN [ "cross-build-end" ]/g' Dockerfile.alpine.arm
 
 rm docker-compose.arm.yml
 cp docker-compose.yml docker-compose.arm.yml
