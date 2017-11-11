@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -20,7 +20,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'faraday'
 gem 'sidekiq'
 gem 'redis-rails'
-gem 'redis'
+gem 'redis', '~> 3.3'
 gem 'weather-icons-rails', git: 'https://github.com/busbyjon/weather-icons-rails.git'
 
 gem 'ruby-sun-times', require: 'sun_times'
@@ -65,3 +65,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'tzinfo-data'
+# adding exception notification gem for errors
+gem 'exception_notification'

@@ -1,4 +1,4 @@
-class HomeStatus 
+class HomeStatus
 
 	def initialize
 
@@ -7,8 +7,8 @@ class HomeStatus
 		latitude = 51.6201868
 		longitude = -0.7344163000000208
 		sun_times = SunTimes.new
-		@sunrise = sun_times.rise(day, latitude, longitude) 
-		@sunset = sun_times.set(day, latitude, longitude) 
+		@sunrise = sun_times.rise(day, latitude, longitude)
+		@sunset = sun_times.set(day, latitude, longitude)
 
 	end
 
@@ -16,7 +16,7 @@ class HomeStatus
 
 		now = DateTime.now
 
-		if ((now - 2.hours) < @sunrise) 
+		if ((now - 2.hours) < @sunrise)
 			return true
 		end
 
@@ -26,7 +26,7 @@ class HomeStatus
 
 		return false
 
-	end	
+	end
 
 
 	def is_anyone_home
@@ -43,12 +43,23 @@ class HomeStatus
 
 	end
 
+	def get_current_setting
+		if this.is_anyone_home == false
+			return "All Off"
+		else
+			return this.get_current_program
+		end
+	end
+
 	def get_current_program
 			return Rails.application.config.light_state_setting
 	end
 
 	def get_next_program
-
+		queue = Sidekiq::Queue.new
+		queue.each do |job|
+			puts job.klass
+		end
 	end
 
 

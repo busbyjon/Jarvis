@@ -6,19 +6,19 @@ class SetLightsJob < ApplicationJob
 
     puts "JARVIS : Running light task for " + setting
 
-    if (start_countdown == true) 
-    	# schedule the task 
+    if (start_countdown == true)
+    	# schedule the task
     	SetLightsJob.set(wait: 5.minutes).perform_later(setting, description, false)
     	# ok lets set a new cable message
     	message = Message.new
     	message.setMessage("Switching to " + description + " in 5 minutes")
         UpdateCountdownJob.set(wait: 1.minute).perform_later(description, 4)
     	return true
-    else 
+    else
 
-        hue = HueLights.new
+        hue = HueLights.factory
 
-        if (setting == "allOff") 
+        if (setting == "allOff")
             #Override all others and turn lights off
             puts "JARVIS : Turning off all lights"
             hue.setGroupState('0',"false")
@@ -30,17 +30,17 @@ class SetLightsJob < ApplicationJob
         Rails.application.config.light_state_setting = setting
         Rails.cache.write("light_state_description", description)
         Rails.application.config.light_state_description = description
-        
+
         # Only run this when someone is home!
         # TODO : Refactor this code
         puts "JARVIS : Checking if anyone is home"
         home = HomeStatus.new
-        if home.is_anyone_home == false 
+        if home.is_anyone_home == false
             puts "JARVIS : No one is home - do not trigger lights"
             return false
         end
 
-        # Check if its dail light (this happens when sunrise is before morning lights 
+        # Check if its dail light (this happens when sunrise is before morning lights
         # during the weeking)
         if home.is_it_dark == false
             puts "JARVIS : its not dark, dont trigger lights"
@@ -49,7 +49,7 @@ class SetLightsJob < ApplicationJob
             Rails.cache.write("light_state_description", "Daylight")
             return false
         end
-        
+
 
         case setting
             when "morningOn"
@@ -67,9 +67,9 @@ class SetLightsJob < ApplicationJob
                 hue.setGroupState('0',"false")
             when "sunset"
                 #Evening Mode
-                 hue.setGroupScene('1', "rIg438uSIfL57JI")
-                 hue.setGroupScene('3', "lJOfC6ZAtF4AmGE")
-                 hue.setGroupScene('2', "NUzJbNcROx-C4aA")
+                hue.setGroupScene('1', "rIg438uSIfL57JI")
+                hue.setGroupScene('3', "lJOfC6ZAtF4AmGE")
+                hue.setGroupScene('2', "NUzJbNcROx-C4aA")
             when "sunrise"
                 #All Lights Off
                 hue.setGroupState('0',"false")

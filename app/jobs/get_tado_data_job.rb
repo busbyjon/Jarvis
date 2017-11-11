@@ -6,7 +6,7 @@ class GetTadoDataJob < ApplicationJob
   def perform(*args)
 
     @tado = Tado.factory
-	
+
     message = Message.new
     current_message = message.getMessage
 
@@ -22,7 +22,7 @@ class GetTadoDataJob < ApplicationJob
     devices.each do |device|
       status = @tado.get_device_status_bool(device)
       device_status.store(device,status)
-      if (status == true) 
+      if (status == true)
         current_home_status = true
       end
     end
@@ -34,7 +34,7 @@ class GetTadoDataJob < ApplicationJob
     # There's probably some clever short code way of solving for this
     # but I cant figure that out - so its just a simple set of if statements
 
-    if (current_home_status == false && was_anyone_home == true) 
+    if (current_home_status == false && was_anyone_home == true)
       puts "JARVIS : everyone has gone out - turn off the lights"
       # turn off all the lights
       SetLightsJob.perform_later("allOff", "All Lights Off", false)
@@ -54,9 +54,9 @@ class GetTadoDataJob < ApplicationJob
         message = Message.new
         message.setMessage("Welcome home, lights set back to " + light_description)
       end
-      
+
     end
-      
+
     puts "JARVIS : Writing cache key for is_anyone_home to " + current_home_status.to_s
     Rails.cache.write('is_anyone_home', current_home_status)
 
@@ -70,6 +70,12 @@ class GetTadoDataJob < ApplicationJob
 
     # Re-read from cache just incase
     current_light_mode = Rails.cache.read("light_state_description")
+
+
+    # Home status
+    home_status = HomeStatus.new
+    next_prog = home_status.get_next_program
+    
 
   	ActionCable.server.broadcast 'stats',
           indoor_temp: @tado.get_indoor_temp,

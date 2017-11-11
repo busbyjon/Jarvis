@@ -61,6 +61,15 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   :location => '/usr/sbin/sendmail',
+  #   :arguments => '-i -t'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -90,5 +99,13 @@ Rails.application.configure do
 
   config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 90.minutes }
 
-  
+
 end
+
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :deliver_with => :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
+    :email_prefix => "[ERROR] ",
+    :sender_address => %{"Jarvis Notifier" <jarvis@jonbusby.co.uk>},
+    :exception_recipients => %w{jon@jonbusby.co.uk}
+  }
